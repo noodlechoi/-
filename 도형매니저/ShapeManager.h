@@ -13,11 +13,13 @@ class ShapeManager {
 	Shape** shapes;						// 도형의 포인터들을 담을 수 있는 메모리
 
 public:
+	ShapeManager();
 	explicit ShapeManager(int n);		// 담을 수 있는 도형의 갯수를 생성자에 전달
-										// explict 사용법을 알아보자
+										// explict 사용법을 알아보자 => 형변환 제한
 	~ShapeManager();
 	ShapeManager(const ShapeManager&) = default;
 
+	void init(const int& n);			// 멤버변수를 초기화하는 함수
 	void insert(Shape* a);				// 도형을 추가하는 함수
 	void draw() const;					// 전체 도형을 그리는 함수
 };

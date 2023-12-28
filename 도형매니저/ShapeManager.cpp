@@ -2,6 +2,10 @@
 #include <iostream>
 using namespace std;
 
+ShapeManager::ShapeManager() : nShape{0}, capacity{0}, shapes{nullptr}
+{
+}
+
 ShapeManager::ShapeManager(int n)
 {
 	nShape = 0;							// 처음 만들어질 때는 관리하는 도형 갯수가 0임
@@ -15,6 +19,21 @@ ShapeManager::~ShapeManager()
 	for(int i = 0; i < nShape; ++i)
 		delete shapes[i];
 	//delete[] shapes;					// 도형관리자가 관리하는 도형의 소멸자를 호출함
+}
+
+void ShapeManager::init(const int& n)
+{
+	try	{
+		// shapes가 널포인터면 할당
+		if (shapes) throw shapes;
+
+		nShape = 0;							// 처음 만들어질 때는 관리하는 도형 갯수가 0임
+		capacity = n;						// 최대 n개의 도형을 담을 수 있음
+		shapes = new Shape * [capacity];
+	}
+	catch (const std::exception& e)	{
+		cout << "이미 할당되어있는 메모리입니다." << endl;
+	}
 }
 
 void ShapeManager::insert(Shape* a)
@@ -41,3 +60,4 @@ void ShapeManager::draw() const
 	cout << "그리기를 마칩니다" << '\n';
 	cout << "-------------------------------------------" << '\n' << '\n';
 }
+

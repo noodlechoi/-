@@ -134,6 +134,7 @@
     <ClInclude Include="shape.h" />
     <ClInclude Include="ShapeManager.h" />
     <ClInclude Include="triangle.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="circle.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
     <ClCompile Include="triangle.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="다형성구현.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
