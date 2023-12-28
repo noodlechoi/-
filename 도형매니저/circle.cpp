@@ -4,6 +4,7 @@
 Circle::Circle() 
 	: center(), rad(0.0)
 {
+	std::cout << "생정자" << std::endl;
 }
 
 // 복사생성자를 프로그램할 이유가 있다면 멤버변수의 값을 복사해야 한다.
@@ -12,15 +13,18 @@ Circle::Circle()
 Circle::Circle(const Point& c, double r)
 	: center(c), rad(r)
 {
+	std::cout << "생정자 (const Point& c, double r)" << std::endl;
 }
 
 Circle::Circle(const Circle& other)
 	: center(other.center), rad(other.rad)
 {
+	std::cout << "복사 생정자" << std::endl;
 }
 
 Circle::~Circle()
 {
+	std::cout << "소멸자" << std::endl;
 }
 
 void Circle::draw() const

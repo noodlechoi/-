@@ -27,9 +27,12 @@ int main()
 	for (int i = 0; i < 10; ++i)
 		sm.insert(new Rectangle(Point(i, i + 1), Point(i * 2, i * 3)));
 
+	sm.insert(new Rectangle(Point(3, 3), Point(5, 5)));
+
 	// 3. 관리하고 있는 모든 도형을 그림
 	sm.draw();
 
 	// 이 프로그램에서 잘못된 점을 찾을 수 있는가?
+	// 답: 각 도형 객체들의 소멸자가 작동하지 않는다.
 	// 잘못된 점을 어떻게 찾을 수 있는가?
 }

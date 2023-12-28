@@ -4,20 +4,24 @@
 Triangle::Triangle()
 	: p1(), p2(), p3()
 {
+	std::cout << "생정자" << std::endl;
 }
 
 Triangle::Triangle(const Point& a, const Point& b, const Point& c)
 	: p1(a), p2(b), p3(c)
 {
+	std::cout << "생정자 (const Point& a, const Point& b, const Point& c)" << std::endl;
 }
 
 Triangle::Triangle(const Triangle& other)
 	: p1(other.p1), p2(other.p2), p3(other.p3)
 {
+	std::cout << "복사 생정자" << std::endl;
 }
 
 Triangle::~Triangle()
 {
+	std::cout << "소멸자" << std::endl;
 }
 
 void Triangle::draw() const
