@@ -4,6 +4,13 @@
 //-----------------------------------------------------------------------------
 #pragma once
 
+enum class eShape
+{
+	NONE,
+	TRIANGLE,
+	RECTANGLE,
+	CIRCLE,
+};
 
 class Shape {
 public:

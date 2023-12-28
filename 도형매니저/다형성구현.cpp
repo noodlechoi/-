@@ -30,7 +30,10 @@ int main()
 
 	UI ui(100);
 	ui.init();
-	ui.draw();
+
+	while (true) {
+		if (ui.input()) break;
+	}
 
 	// 이 프로그램에서 잘못된 점을 찾을 수 있는가?
 	// 답: 각 도형 객체들의 소멸자가 작동하지 않는다.
