@@ -3,7 +3,7 @@
 // 2차원 좌표 (x,y)를 나타낸다
 //-----------------------------------------------------------------------------
 #pragma once
-
+#include <iostream>
 
 struct Point {									// struct - default public
 	double x, y;

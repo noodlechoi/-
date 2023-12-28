@@ -1,9 +1,8 @@
 #include "UI.h"
-#include <iostream>
 using namespace std;
 
 
-UI::UI(int n) : state{0}, shape{eShape::NONE}
+UI::UI(int n) : shape{eShape::NONE}, state{State::START}
 {
 	sm.init(n);
 }
@@ -18,7 +17,8 @@ void UI::start_menu() const
 	cout << "start menu" << endl;
 	cout << "1. 도형 추가" << endl;
 	cout << "2. 전체 도형 그리기" << endl;
-	cout << "3. 프로그램 종료" << endl;
+	cout << "3. 도형 제거" << endl;
+	cout << "4. 프로그램 종료" << endl;
 	cout << "입력: ";
 }
 
@@ -32,11 +32,20 @@ void UI::shape_menu() const
 	cout << "입력: ";
 }
 
+void UI::remove_menu() const
+{
+	cout << "remove menu" << endl;
+	cout << "1. n번째 도형 삭제" << endl;
+	cout << "2. 한 종류의 도형 삭제" << endl;
+	cout << "3. 이전" << endl;
+	cout << "입력: ";
+}
+
 bool UI::input()
 {
 	int choice;
 	try	{
-		if (state == 0) {
+		if (state == State::START) {
 			start_menu();
 			cin >> choice;
 
@@ -45,12 +54,15 @@ bool UI::input()
 
 			switch (choice) {
 			case 1:
-				state++;
+				state = State::ADD;
 				break;
 			case 2:
 				draw();
 				break;
 			case 3:
+				state = State::REMOVEMENU;
+				break;
+			case 4:
 				cout << "프로그램이 종료됩니다" << endl;
 				return true;
 				break;
@@ -59,7 +71,7 @@ bool UI::input()
 				break;
 			}
 		}
-		else if (state == 1) {
+		else if (state == State::ADD) {
 			shape_menu();
 			cin >> choice;
 
@@ -69,26 +81,52 @@ bool UI::input()
 			switch (choice) {
 			case 1:
 				shape = eShape::TRIANGLE;
+				state = State::INPUTPOS;
 				break;
 			case 2:
 				shape = eShape::RECTANGLE;
+				state = State::INPUTPOS;
 				break;
 			case 3:
 				shape = eShape::CIRCLE;
+				state = State::INPUTPOS;
 				break;
 			case 4:
-				state--;
+				state = State::START;
 				break;
 			default: // 없는 번호면 예외처리
 				throw choice;
 				break;
 			}
 		}
-		else if (state == 2) {
+		else if (state == State::INPUTPOS) {
 			input_pos();
 
-			// 입력 후 shape 메뉴로 이동
-			state = 1;
+			state = State::ADD;
+		}
+		else if (state == State::REMOVEMENU) {
+			remove_menu();
+			cin >> choice;
+
+			if (isalpha(choice))	// 숫자가 아닌 값이 입력되면 예외처리
+				throw choice;
+
+			switch (choice) {
+			case 1:
+				state = State::REMOVEONE;
+				break;
+			case 2:
+				state = State::REMOVEALL;
+				break;
+			case 3:
+				break;
+			default: // 없는 번호면 예외처리
+				throw choice;
+				break;
+			}
+			remove();
+
+			state = State::START;
 		}
 		else {
 			throw state;
@@ -105,9 +143,64 @@ bool UI::input()
 
 void UI::input_pos()
 {
-	cout << "좌표 입력" << endl;
+	cout << "좌표 입력(2차원 좌표)" << endl;
 
+	//int p_capacity;
+	if (shape == eShape::TRIANGLE) {
+		// input point
+		Point p[3];
+		for (int i = 0; i < 3; ++i) {
+			cin >> p[i].x >> p[i].y;
+		}
 
+		sm.insert(new Triangle(p[0], p[1], p[2]));
+	}
+	else if (shape == eShape::RECTANGLE) {
+		Point p[2];
+		for (int i = 0; i < 2; ++i) {
+			cin >> p[i].x >> p[i].y;
+		}
+
+		sm.insert(new Rectangle(p[0], p[1]));
+	}
+	else if (shape == eShape::CIRCLE) {
+		Point p;
+		double center;
+		cout << "중심 반지름" << endl;
+		cin >> p.x >> p.y >> center;
+
+		sm.insert(new Circle(p, center));
+	}
+
+	/*Point* p = new Point[p_capacity];
+	for (int i = 0; i < p_capacity; ++i) {
+		cin >> p[i].x >> p[i].y;
+	}*/
+}
+
+void UI::remove()
+{
+	if (state == State::REMOVEONE) {
+		int n;
+		cout << "도형 개수: " << sm.get_number() << endl;
+		cout << "몇 번째 도형을 제거할까요? ";
+		cin >> n;
+
+		if (isalpha(n))	// 숫자가 아닌 값이 입력되면 예외처리
+			throw n;
+
+		try {
+			if (n > sm.get_cpacity()) throw n;
+
+			sm.remove(n);
+		}
+		catch (const std::exception& e) {
+			cout << "범위를 벗어났습니다." << endl;
+		}
+	}
+	else if (state == State::REMOVEALL) {
+
+	}
 }
 
 void UI::draw() const

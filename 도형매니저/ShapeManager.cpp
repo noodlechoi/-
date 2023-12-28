@@ -42,6 +42,17 @@ void ShapeManager::insert(Shape* a)
 	nShape++;
 }
 
+void ShapeManager::remove(int n)
+{
+	delete shapes[n];
+	nShape--;
+}
+
+void ShapeManager::remove(eShape shape)
+{
+
+}
+
 void ShapeManager::draw() const
 {
 	cout << "-------------------------------------------" << '\n';
