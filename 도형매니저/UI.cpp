@@ -81,13 +81,9 @@ bool UI::input_menu()
 			// choose
 			switch (choice) {
 			case 1:
-				shape = eShape::TRIANGLE;
-				break;
 			case 2:
-				shape = eShape::RECTANGLE;
-				break;
 			case 3:
-				shape = eShape::CIRCLE;
+				shape = static_cast<eShape>(choice);
 				break;
 			case 4:
 				state = State::START;
@@ -200,7 +196,35 @@ void UI::remove()
 		}
 	}
 	else if (state == State::REMOVEALL) {
+		int n;
+		print_shape();
+		cout << "어떤 도형을 제거할까요? ";
+		cin >> n;
 
+		if (isalpha(n))	// 숫자가 아닌 값이 입력되면 예외처리
+			throw n;
+
+		try {
+			switch (n) {
+			case 1:
+			case 2:
+			case 3:
+				sm.remove(static_cast<eShape>(n));
+				break;
+			case 4:
+				state = State::START;
+				// 이전이면 바로 다음으로
+				return;
+				break;
+			default: // 없는 번호면 예외처리
+				throw n;
+				break;
+			}
+		}
+		catch (const std::exception& e) {
+			cout << "범위를 벗어났습니다." << endl;
+		}
+		
 	}
 }
 

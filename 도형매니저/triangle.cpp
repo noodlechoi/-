@@ -4,12 +4,16 @@
 Triangle::Triangle()
 	: p1(), p2(), p3()
 {
+	shape = eShape::TRIANGLE;
+
 	std::cout << "생정자" << std::endl;
 }
 
 Triangle::Triangle(const Point& a, const Point& b, const Point& c)
 	: p1(a), p2(b), p3(c)
 {
+	shape = eShape::TRIANGLE;
+
 	std::cout << "생정자 (const Point& a, const Point& b, const Point& c)" << std::endl;
 }
 

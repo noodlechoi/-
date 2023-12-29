@@ -56,7 +56,13 @@ void ShapeManager::remove(int n)
 
 void ShapeManager::remove(eShape shape)
 {
-
+	for (int i = 0; i < nShape;) {
+		if (shapes[i]->get() == shape) {
+			remove(i);
+		}
+		// 삭제하지 않을때만 다음 도형 체크
+		else ++i;
+	}
 }
 
 void ShapeManager::draw() const

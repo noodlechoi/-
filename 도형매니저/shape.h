@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #pragma once
 
-enum class eShape
+enum class eShape : int
 {
 	NONE,
 	TRIANGLE,
@@ -13,9 +13,12 @@ enum class eShape
 };
 
 class Shape {
+protected:
+	eShape shape;
 public:
-	Shape() {};
+	Shape() : shape{ eShape::NONE } {};
 	virtual ~Shape() {};
 
 	virtual void draw() const = 0;			// pure virtual function
+	eShape get() { return shape; };
 };

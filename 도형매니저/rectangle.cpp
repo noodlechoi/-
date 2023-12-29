@@ -4,12 +4,14 @@
 Rectangle::Rectangle()
 	: p1(), p2()
 {
+	shape = eShape::RECTANGLE;
 	std::cout << "생정자" << std::endl;
 }
 
 Rectangle::Rectangle(const Point& a, const Point& b)
 	: p1(a), p2(b)
 {
+	shape = eShape::RECTANGLE;
 	std::cout << "생정자 (const Point& a, const Point& b)" << std::endl;
 }
 

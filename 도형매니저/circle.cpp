@@ -4,6 +4,7 @@
 Circle::Circle() 
 	: center(), rad(0.0)
 {
+	shape = eShape::CIRCLE;
 	std::cout << "생정자" << std::endl;
 }
 
@@ -13,6 +14,7 @@ Circle::Circle()
 Circle::Circle(const Point& c, double r)
 	: center(c), rad(r)
 {
+	shape = eShape::CIRCLE;
 	std::cout << "생정자 (const Point& c, double r)" << std::endl;
 }
 
