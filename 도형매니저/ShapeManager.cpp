@@ -44,8 +44,14 @@ void ShapeManager::insert(Shape* a)
 
 void ShapeManager::remove(int n)
 {
+	// remove
 	delete shapes[n];
 	nShape--;
+
+	// 뒤에 있는 도형 인덱스 당기기
+	for (int i = n; i < nShape; ++i) {
+		shapes[i] = shapes[i + 1];
+	}
 }
 
 void ShapeManager::remove(eShape shape)

@@ -12,7 +12,7 @@ UI::~UI()
 }
 
 
-void UI::start_menu() const
+void UI::print_start() const
 {
 	cout << "start menu" << endl;
 	cout << "1. 도형 추가" << endl;
@@ -22,7 +22,7 @@ void UI::start_menu() const
 	cout << "입력: ";
 }
 
-void UI::shape_menu() const
+void UI::print_shape() const
 {
 	cout << "shape menu" << endl;
 	cout << "1. 삼각형" << endl;
@@ -32,7 +32,7 @@ void UI::shape_menu() const
 	cout << "입력: ";
 }
 
-void UI::remove_menu() const
+void UI::print_remove() const
 {
 	cout << "remove menu" << endl;
 	cout << "1. n번째 도형 삭제" << endl;
@@ -41,12 +41,12 @@ void UI::remove_menu() const
 	cout << "입력: ";
 }
 
-bool UI::input()
+bool UI::input_menu()
 {
 	int choice;
 	try	{
 		if (state == State::START) {
-			start_menu();
+			print_start();
 			cin >> choice;
 
 			if (isalpha(choice))	// 숫자가 아닌 값이 입력되면 예외처리
@@ -54,13 +54,13 @@ bool UI::input()
 
 			switch (choice) {
 			case 1:
-				state = State::ADD;
+				state = State::SELECT;
 				break;
 			case 2:
 				draw();
 				break;
 			case 3:
-				state = State::REMOVEMENU;
+				state = State::REMOVE;
 				break;
 			case 4:
 				cout << "프로그램이 종료됩니다" << endl;
@@ -71,41 +71,39 @@ bool UI::input()
 				break;
 			}
 		}
-		else if (state == State::ADD) {
-			shape_menu();
+		else if (state == State::SELECT) {
+			print_shape();
 			cin >> choice;
 
 			if (isalpha(choice))	// 숫자가 아닌 값이 입력되면 예외처리
 				throw choice;
 
+			// choose
 			switch (choice) {
 			case 1:
 				shape = eShape::TRIANGLE;
-				state = State::INPUTPOS;
 				break;
 			case 2:
 				shape = eShape::RECTANGLE;
-				state = State::INPUTPOS;
 				break;
 			case 3:
 				shape = eShape::CIRCLE;
-				state = State::INPUTPOS;
 				break;
 			case 4:
 				state = State::START;
+				// 이전이면 바로 다음으로
+				return false;
 				break;
 			default: // 없는 번호면 예외처리
 				throw choice;
 				break;
 			}
-		}
-		else if (state == State::INPUTPOS) {
-			input_pos();
 
-			state = State::ADD;
+			input_pos();
+			state = State::SELECT;
 		}
-		else if (state == State::REMOVEMENU) {
-			remove_menu();
+		else if (state == State::REMOVE) {
+			print_remove();
 			cin >> choice;
 
 			if (isalpha(choice))	// 숫자가 아닌 값이 입력되면 예외처리
@@ -119,6 +117,8 @@ bool UI::input()
 				state = State::REMOVEALL;
 				break;
 			case 3:
+				state = State::START;
+				return false;
 				break;
 			default: // 없는 번호면 예외처리
 				throw choice;
@@ -192,6 +192,7 @@ void UI::remove()
 		try {
 			if (n > sm.get_cpacity()) throw n;
 
+			// remove
 			sm.remove(n);
 		}
 		catch (const std::exception& e) {

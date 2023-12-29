@@ -32,7 +32,7 @@ int main()
 	ui.init();
 
 	while (true) {
-		if (ui.input()) break;
+		if (ui.input_menu()) break;
 	}
 
 	// 이 프로그램에서 잘못된 점을 찾을 수 있는가?

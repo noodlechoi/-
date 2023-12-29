@@ -9,9 +9,8 @@
 enum class State
 {
 	START,
-	ADD,
-	INPUTPOS,
-	REMOVEMENU,
+	SELECT,
+	REMOVE,
 	REMOVEONE,
 	REMOVEALL,
 };
@@ -28,10 +27,10 @@ public:
 
 	int get_state() { return static_cast<int>(state); };
 
-	void start_menu() const;
-	void shape_menu() const;
-	void remove_menu() const;
-	bool input();	// 종료 시 true 반환
+	void print_start() const;
+	void print_shape() const;
+	void print_remove() const;
+	bool input_menu();	// 종료 시 true 반환
 	void input_pos();
 	void remove();
 	void init();
