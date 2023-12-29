@@ -133,11 +133,6 @@ void ShapeManager::save()
 		for (int i = 0; i < nShape; ++i) {
 			shapes[i]->save(f);
 		}
-
-		// 마지막 줄을 load 안 하도록 -1을 넣음
-		f << -1;
-
-		f.close();
 	}
 	catch (const int& e) {
 		cout << "file open fail" << endl;
@@ -157,9 +152,8 @@ void ShapeManager::load()
 
 		reset();
 
-		while (f) {
-			int s; // shape
-			f >> s;
+		int s; // shape
+		while (f >> s) {
 
 			switch (static_cast<eShape>(s)) {
 			case eShape::TRIANGLE:
@@ -202,12 +196,9 @@ void ShapeManager::load()
 			}
 			break;
 			default:
-				f.close();
 				return;
 			}
 		}
-		
-		f.close();
 	}
 	catch (const int& e) {
 		cout << "file open fail" << endl;
