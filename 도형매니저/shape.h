@@ -11,6 +11,7 @@ enum class eShape : int
 	TRIANGLE,
 	RECTANGLE,
 	CIRCLE,
+	LINE,
 };
 
 class Shape {

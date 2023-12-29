@@ -5,6 +5,7 @@
 #include "circle.h"
 #include "rectangle.h"
 #include "ShapeManager.h"
+#include "line.h"
 
 enum class State
 {

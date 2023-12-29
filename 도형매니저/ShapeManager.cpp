@@ -1,6 +1,7 @@
 #include "ShapeManager.h"
 #include "point.h"
 #include "triangle.h"
+#include "line.h"
 #include "circle.h"
 #include "rectangle.h"
 #include <iostream>
@@ -190,6 +191,16 @@ void ShapeManager::load()
 				insert(new Circle(p, r));
 			}
 				break;
+			case eShape::LINE:
+			{
+				Point p[2];
+				for (int i = 0; i < 2; ++i) {
+					f >> p[i].x >> p[i].y;
+				}
+
+				insert(new Line(p[0], p[1]));
+			}
+			break;
 			default:
 				f.close();
 				return;

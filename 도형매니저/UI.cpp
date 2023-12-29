@@ -29,7 +29,8 @@ void UI::print_shape() const
 	cout << "1. 삼각형" << endl;
 	cout << "2. 사각형" << endl;
 	cout << "3. 원" << endl;
-	cout << "4. 이전" << endl;
+	cout << "4. 선분" << endl;
+	cout << "5. 이전" << endl;
 	cout << "입력: ";
 }
 
@@ -97,9 +98,10 @@ bool UI::input_menu()
 			case 1:
 			case 2:
 			case 3:
+			case 4:
 				shape = static_cast<eShape>(choice);
 				break;
-			case 4:
+			case 5:
 				state = State::START;
 				// 이전이면 바로 다음으로
 				return false;
@@ -205,6 +207,14 @@ void UI::input_pos()
 
 		sm.insert(new Circle(p, r));
 	}
+	else if (shape == eShape::LINE) {
+		Point p[2];
+		for (int i = 0; i < 2; ++i) {
+			cin >> p[i].x >> p[i].y;
+		}
+
+		sm.insert(new Line(p[0], p[1]));
+	}
 
 	/*Point* p = new Point[p_capacity];
 	for (int i = 0; i < p_capacity; ++i) {
@@ -247,9 +257,10 @@ void UI::remove()
 			case 1:
 			case 2:
 			case 3:
+			case 4:
 				sm.remove(static_cast<eShape>(n));
 				break;
-			case 4:
+			case 5:
 				state = State::START;
 				// 이전이면 바로 다음으로
 				return;
