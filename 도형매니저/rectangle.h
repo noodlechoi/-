@@ -16,5 +16,6 @@ public:
 	~Rectangle();
 
 	virtual void draw() const override;
+	virtual void save(std::ofstream& f) override;
 };
 

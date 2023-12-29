@@ -3,6 +3,7 @@
 // 이 클래스는 추상 클래스(abstract class)이다.
 //-----------------------------------------------------------------------------
 #pragma once
+#include <fstream>
 
 enum class eShape : int
 {
@@ -20,5 +21,6 @@ public:
 	virtual ~Shape() {};
 
 	virtual void draw() const = 0;			// pure virtual function
+	virtual void save(std::ofstream& f) = 0;
 	eShape get() { return shape; };
 };

@@ -34,3 +34,11 @@ void Triangle::draw() const
 		<< p2.x << "," << p2.y << "), ("
 		<< p3.x << "," << p3.y << ")" << '\n';
 }
+
+void Triangle::save(std::ofstream& f)
+{
+	f << static_cast<int>(shape) << " ";
+	f << p1.x << " " << p1.y << " ";
+	f << p2.x << " " << p2.y << " ";
+	f << p3.x << " " << p3.y << "\n";
+}

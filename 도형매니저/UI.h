@@ -13,6 +13,7 @@ enum class State
 	REMOVE,
 	REMOVEONE,
 	REMOVEALL,
+	FILE,
 };
 
 class UI
@@ -31,6 +32,7 @@ public:
 	void print_start() const;
 	void print_shape() const;
 	void print_remove() const;
+	void print_file() const;
 
 	bool input_menu();	// 종료 시 true 반환
 	void input_pos(); // 선택된 도형에 따라 좌표 및 반지름 입력

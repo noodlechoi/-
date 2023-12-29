@@ -18,7 +18,8 @@ void UI::print_start() const
 	cout << "1. 도형 추가" << endl;
 	cout << "2. 전체 도형 그리기" << endl;
 	cout << "3. 도형 제거" << endl;
-	cout << "4. 프로그램 종료" << endl;
+	cout << "4. 파일 저장 및 읽기" << endl;
+	cout << "5. 프로그램 종료" << endl;
 	cout << "입력: ";
 }
 
@@ -40,6 +41,16 @@ void UI::print_remove() const
 	cout << "3. 이전" << endl;
 	cout << "입력: ";
 }
+
+void UI::print_file() const
+{
+	cout << "file menu" << endl;
+	cout << "1. 파일에 저장" << endl;
+	cout << "2. 파일 읽어오기" << endl;
+	cout << "3. 이전" << endl;
+	cout << "입력: ";
+}
+
 
 bool UI::input_menu()
 {
@@ -63,6 +74,9 @@ bool UI::input_menu()
 				state = State::REMOVE;
 				break;
 			case 4:
+				state = State::FILE;
+				break;
+			case 5:
 				cout << "프로그램이 종료됩니다" << endl;
 				return true;
 				break;
@@ -124,6 +138,30 @@ bool UI::input_menu()
 
 			state = State::START;
 		}
+		else if (state == State::FILE) {
+			print_file();
+
+			cin >> choice;
+
+			if (isalpha(choice))	// 숫자가 아닌 값이 입력되면 예외처리
+				throw choice;
+
+			switch (choice) {
+			case 1:
+				sm.save();
+				break;
+			case 2:
+				sm.load();
+				break;
+			case 3:
+				state = State::START;
+				return false;
+				break;
+			default: // 없는 번호면 예외처리
+				throw choice;
+				break;
+			}
+		}
 		else {
 			throw state;
 		}
@@ -161,11 +199,11 @@ void UI::input_pos()
 	}
 	else if (shape == eShape::CIRCLE) {
 		Point p;
-		double center;
+		double r;
 		cout << "중심 반지름" << endl;
-		cin >> p.x >> p.y >> center;
+		cin >> p.x >> p.y >> r;
 
-		sm.insert(new Circle(p, center));
+		sm.insert(new Circle(p, r));
 	}
 
 	/*Point* p = new Point[p_capacity];
@@ -186,7 +224,7 @@ void UI::remove()
 			throw n;
 
 		try {
-			if (n > sm.get_cpacity()) throw n;
+			if (n >= sm.get_number()) throw n;
 
 			// remove
 			sm.remove(n);

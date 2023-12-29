@@ -31,3 +31,10 @@ void Rectangle::draw() const
 	std::cout << "»ç°¢Çü - (" << p1.x << "," << p1.y << "), ("
 		<< p2.x << "," << p2.y << ")" << '\n';
 }
+
+void Rectangle::save(std::ofstream& f)
+{
+	f << static_cast<int>(shape) << " ";
+	f << p1.x << " " << p1.y << " ";
+	f << p2.x << " " << p2.y << "\n";
+}

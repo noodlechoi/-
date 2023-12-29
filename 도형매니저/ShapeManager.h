@@ -24,6 +24,12 @@ public:
 	void remove(int n);
 	void remove(eShape shape);
 	void draw() const;					// 전체 도형을 그리는 함수
+	void add_capacity();
+	void reset();
+
+	// file
+	void save();
+	void load();
 
 	int get_cpacity() const { return capacity; } ;
 	int get_number() const { return nShape; };
