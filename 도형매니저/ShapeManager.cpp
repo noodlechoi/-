@@ -31,13 +31,13 @@ void ShapeManager::init(const int& n)
 {
 	try	{
 		// shapes가 널포인터면 할당
-		if (shapes) throw shapes;
+		if (shapes) throw -1;
 
 		nShape = 0;							// 처음 만들어질 때는 관리하는 도형 갯수가 0임
 		capacity = n;						// 최대 n개의 도형을 담을 수 있음
 		shapes = new Shape * [capacity];
 	}
-	catch (const std::exception& e)	{
+	catch (const int& e)	{
 		cout << "이미 할당되어있는 메모리입니다." << endl;
 	}
 }
@@ -125,7 +125,7 @@ void ShapeManager::save()
 
 	try {
 		if (!f) {
-			throw 0;
+			throw -1;
 		}
 
 		f << capacity << "\n";
@@ -139,7 +139,7 @@ void ShapeManager::save()
 
 		f.close();
 	}
-	catch (const std::exception& e) {
+	catch (const int& e) {
 		cout << "file open fail" << endl;
 	}
 }
@@ -150,7 +150,7 @@ void ShapeManager::load()
 
 	try {
 		if (!f) {
-			throw 0;
+			throw -1;
 		}
 
 		f >> capacity;
@@ -209,7 +209,7 @@ void ShapeManager::load()
 		
 		f.close();
 	}
-	catch (const std::exception& e) {
+	catch (const int& e) {
 		cout << "file open fail" << endl;
 	}
 }

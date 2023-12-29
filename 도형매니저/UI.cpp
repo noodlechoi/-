@@ -239,7 +239,7 @@ void UI::remove()
 			// remove
 			sm.remove(n);
 		}
-		catch (const std::exception& e) {
+		catch (const int& e) {
 			cout << "¹üÀ§¸¦ ¹þ¾î³µ½À´Ï´Ù." << endl;
 		}
 	}
@@ -270,7 +270,7 @@ void UI::remove()
 				break;
 			}
 		}
-		catch (const std::exception& e) {
+		catch (const int& e) {
 			cout << "¹üÀ§¸¦ ¹þ¾î³µ½À´Ï´Ù." << endl;
 		}
 		
